@@ -23,7 +23,7 @@ parser.add_argument('-sa', required=True, type=int,
 parser.add_argument('-tot', '--total', required=True, type=float,
 					help='total number of points possible on exam')
 parser.add_argument("--plot", action="store_true", default=False,
-                    help='include this option to plot results')
+					help='include this option to plot results')
 
 args = parser.parse_args()
 
@@ -81,7 +81,6 @@ data['SA Score'] = sum(data[cols] for cols in SAcols)
 # Calculate total score
 data['Total (%)'] = ((data['MC Score'] + data['SA Score'])/totalpts*100.).round(4)
 
-
 # Sort data by student username and write all results to output .csv file
 data = data.reindex(index=ns.order_by_index(data.index, ns.index_natsorted(data['Username'])))
 outcols = ['Username', 'MC Score', 'SA Score', 'Total (%)', 'MC Answers']
@@ -110,12 +109,9 @@ if plots:
 	if numSA == 4:
 		for i in range(1,numSA+1):
 			data['SA_Full'+str(i)] = data['SA'+str(i)] + data['SA_Half'+str(i)]
-
 		SApts = (totalpts-numMC)/numSA
 
-
 		fig = plt.figure()
-
 		ax3 = fig.add_subplot(223)
 		ax3.hist(data['SA_Full3'], bins=np.arange(0,SApts+1,0.5), 
 			edgecolor='k', color='0.75')
