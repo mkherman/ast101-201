@@ -6,35 +6,26 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-
 parser = argparse.ArgumentParser(description='Calculates exam marks for AST101/201.')
 
 parser.add_argument('-d', '--directory', default=os.getcwd(), type=str,
 					help='the directory path to the exam data')
-
 parser.add_argument('-r', '--remark', required=True, type=str,
 					help='file name of the remark scantron data')
-
 parser.add_argument('-p', '--portal', required=True, type=str,
 					help='file name of the Portal student data')
-
 parser.add_argument('-o', '--output', default='exam_marks.csv', type=str,
 					help='desired output file name')
-
 parser.add_argument('-mc', required=True, type=int,
 					help='number of multiple choice questions on exam')
-
 parser.add_argument('-sa', required=True, type=int,
 					help='number of short answer questions on exam')
-
 parser.add_argument('-tot', '--total', required=True, type=float,
 					help='total number of points possible on exam')
-
 parser.add_argument("--plot", action="store_true", default=False,
                     help='include this option to plot results')
 
 args = parser.parse_args()
-
 
 path = args.directory
 remark = os.path.join(path, args.remark)
@@ -47,8 +38,6 @@ plots = args.plot
 
 
 
-
-
 # Read in Remark exam data and Portal student info
 rdata = pd.read_csv(remark)
 pdata = pd.read_csv(portal)
@@ -58,24 +47,20 @@ data = pd.merge(rdata,pdata,left_on='Student Number',right_on='Student ID',
 		suffixes=('',' portal'),how='left')
 data = data.rename(columns={'Total Score':'MC Score'})
 
-
 # Find the students who messed up their ID and make my life difficult
 missed = data.loc[data['Student Number'] != data['Student ID']]
 
 if len(missed) != 0:
 	print '\n*** You have %s unmatched students out of %s ***\n' %(len(missed),len(data))
-	
 	print 'The following students likely dropped the course or messed up their student number. To fix this:  \
 		\n  - Find their name in the Portal .csv file, if they are still enrolled  \
 		\n  - Determine their correct student number  \
 		\n  - Edit their student number in the Remark .csv file (maybe make a copy first)  \
 		\n  - Save everything and rerun this code  \
 		\nTrust me, it is safer to do this by eye!\n'
-
 	print missed[['Last Name','First Initial','Student Number']], '\n'
 
 	raise SystemExit(0)
-
 
 # Correct for blank MC answers
 data.replace({'BLANK': 'N'}, regex=True, inplace=True)
@@ -97,13 +82,10 @@ data['SA Score'] = sum(data[cols] for cols in SAcols)
 data['Total (%)'] = ((data['MC Score'] + data['SA Score'])/totalpts*100.).round(4)
 
 
-
-
 # Sort data by student username and write all results to output .csv file
 data = data.reindex(index=ns.order_by_index(data.index, ns.index_natsorted(data['Username'])))
 outcols = ['Username', 'MC Score', 'SA Score', 'Total (%)', 'MC Answers']
 data[outcols].to_csv(output, index=False)
-
 
 print '\nNice, no unmatched students! Your output file has been saved.'
 print '\n*** IMPORTANT ***'
@@ -111,11 +93,7 @@ print 'Do not forget to change the column names in the output file to '
 print 'match the columns specific to the Portal grade center for your course!\n'
 
 
-
-
-
 if plots:
-
 	# Create total score histogram
 	fig = plt.figure()
 	ax = fig.add_subplot(111)
@@ -127,7 +105,6 @@ if plots:
 	ax.set_title('Total Score')
 	fig.savefig(os.path.join(path,'Total_Score.png'))
 	plt.close(fig)
-
 
 	# Create SA score histograms (only works for 4 questions right now)
 	if numSA == 4:
@@ -173,7 +150,5 @@ if plots:
 		fig.savefig(os.path.join(path,'SA_Scores.png'))
 		plt.close(fig)
 
-
 	else:
 		print 'No SA Score plot created. Code only written to plot exactly 4 SA questions.'
-
