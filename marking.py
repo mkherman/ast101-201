@@ -71,7 +71,8 @@ MCcols = ['MC'+str(i) for i in range(1,numMC+1)]
 data[MCcols] = data[MCcols].replace('.*,.*','M',regex=True)
 
 # Create MC answer string
-data['MC Answers'] = data.iloc[:,9:9+numMC].sum(axis=1)
+MCind = data.columns.get_loc('MC1')
+data['MC Answers'] = data.iloc[:,MCind:MCind+numMC].sum(axis=1)
 
 # Calculate SA score
 SAhcols = ['SA_Half'+str(i) for i in range(1,numSA+1)]
