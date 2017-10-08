@@ -87,7 +87,7 @@ data = data.reindex(index=ns.order_by_index(data.index, ns.index_natsorted(data[
 outcols = ['Username', 'MC Score', 'SA Score', 'Total (%)', 'MC Answers']
 data[outcols].to_csv(output, index=False)
 
-print '\nNice, no unmatched students! Your output file has been saved.  \
+print '\nNice, no unmatched students! Your output file has been saved.\n  \
 	\n*** IMPORTANT ***  \
 	\nDo not forget to change the column names in the output file to  \
 	\nmatch the columns specific to the Portal grade center for your course!\n'
@@ -113,31 +113,34 @@ if plots:
 		SApts = (totalpts-numMC)/numSA
 
 		fig = plt.figure()
-		ax3 = fig.add_subplot(223)
-		ax3.hist(data['SA_Full3'], bins=np.arange(0,SApts+1,0.5), edgecolor='k', color='0.75')
-		ax3.set_xlabel('Score')
-		ax3.set_ylabel('Frequency')
-		ax3.text(ax3.get_xlim()[1]*0.05,ax3.get_ylim()[1]*0.85,'SA Question 3')
-
-		ax4 = fig.add_subplot(224, sharex=ax3, sharey=ax3)
-		ax4.hist(data['SA_Full4'], bins=np.arange(0,SApts+1,0.5), edgecolor='k', color='0.75')
-		ax4.set_xlabel('Score')
-		plt.setp(ax4.get_yticklabels(),visible=False)
-		ax4.text(ax4.get_xlim()[1]*0.05,ax4.get_ylim()[1]*0.85,'SA Question 4')
-
-		ax1 = fig.add_subplot(221, sharex=ax3, sharey=ax3)
+		ax1 = fig.add_subplot(221)
 		ax1.hist(data['SA_Full1'], bins=np.arange(0,SApts+1,0.5), edgecolor='k', color='0.75')
 		plt.setp(ax1.get_xticklabels(),visible=False)
 		ax1.set_ylabel('Frequency')
-		ax1.text(ax1.get_xlim()[1]*0.05,ax1.get_ylim()[1]*0.85,'SA Question 1')
 
-		ax2 = fig.add_subplot(222, sharex=ax3, sharey=ax3)
+		ax2 = fig.add_subplot(222, sharex=ax1, sharey=ax1)
 		ax2.hist(data['SA_Full2'], bins=np.arange(0,SApts+1,0.5), edgecolor='k', color='0.75')
 		plt.setp(ax2.get_xticklabels(),visible=False)
 		plt.setp(ax2.get_yticklabels(),visible=False)
-		ax2.set_xbound(lower=0,upper=SApts+0.5)
-		ax2.set_ybound(lower=0)
+
+		ax3 = fig.add_subplot(223, sharex=ax1, sharey=ax1)
+		ax3.hist(data['SA_Full3'], bins=np.arange(0,SApts+1,0.5), edgecolor='k', color='0.75')
+		ax3.set_xlabel('Score')
+		ax3.set_ylabel('Frequency')
+
+		ax4 = fig.add_subplot(224, sharex=ax1, sharey=ax1)
+		ax4.hist(data['SA_Full4'], bins=np.arange(0,SApts+1,0.5), edgecolor='k', color='0.75')
+		ax4.set_xlabel('Score')
+		plt.setp(ax4.get_yticklabels(),visible=False)
+
+		yupper = max((ax1.get_ylim()[1],ax2.get_ylim()[1],ax3.get_ylim()[1],ax4.get_ylim()[1]))
+		ax4.set_xbound(lower=0,upper=SApts+0.5)
+		ax4.set_ybound(lower=0,upper=yupper)
+
+		ax1.text(ax1.get_xlim()[1]*0.05,ax1.get_ylim()[1]*0.85,'SA Question 1')
 		ax2.text(ax2.get_xlim()[1]*0.05,ax2.get_ylim()[1]*0.85,'SA Question 2')
+		ax3.text(ax3.get_xlim()[1]*0.05,ax3.get_ylim()[1]*0.85,'SA Question 3')
+		ax4.text(ax4.get_xlim()[1]*0.05,ax4.get_ylim()[1]*0.85,'SA Question 4')
 
 		fig.tight_layout()
 		fig.savefig(os.path.join(path,'SA_Scores.png'))
