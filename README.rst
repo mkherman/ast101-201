@@ -11,6 +11,7 @@ Requirements
 This code uses Python 2.7. You'll also need the packages pandas `pandas <https://pandas.pydata.org/pandas-docs/stable/install.html>`_ and `natsort <http://natsort.readthedocs.io/en/master/intro.html#installation>`_. Both of these can be installed via pip or conda.
 
 Before you begin, you should have two .csv files ready: 
+
 * the **Remark results** from all of the ScanTron data
 * the **student user information** downloaded from the Portal course website, which you can retrieve by going to the Grade Center and choosing 'Work Offline'
 
@@ -25,6 +26,7 @@ To perform the marking routine, run:
     python marking.py -d {directory} -r {Remark} -p {Portal} -mc {numMC} -sa {numSA} -tot {totalpts}
 
 where 
+
 * ``{directory}`` is the directory where the two aforementioned CSV files are located (current directory by default)
 * ``{Remark}`` is the name of the Remark file
 * ``{Portal}`` is the name of the Portal file
@@ -33,6 +35,7 @@ where
 * ``{totalpts}`` is the total number of points possible on the exam
 
 You can also specify:
+
 * ``-o {output}`` for the desired name of the output CSV file
 * ``--plot`` to plot the mark distributions
 
