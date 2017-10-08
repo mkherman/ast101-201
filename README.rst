@@ -45,9 +45,9 @@ Note that currently the code is only able to plot the short-answer distributions
 Output
 ++++++++++++++
 
-Generally there will be a handful of students who wrote down their ID numbers incorrectly on their ScanTron sheets. This is a problem, because their marks will not be properly uploaded to Portal, and it's very tricky to fix without human aid! Some students will also have dropped the course after taking the exam, and so will not be listed in Portal.
+Generally there will be a handful of students who wrote down their ID numbers incorrectly on their ScanTron sheets. This is a problem, because their marks will not be properly uploaded to Portal, and it's very tricky to fix without human aid! Additionally, some students will have dropped the course after taking the exam and so will not be listed in Portal.
 
-Therefore, the code prints a list of all the students for whom a matching ID number was not found. You need to find these students in the Portal file, identify their correct ID number, and update this number in the Remark file. If the student dropped the course, remove them from the Remark file. It's a good idea to make a copy of the file before doing this, just in case.
+Therefore, the code prints a list of all the students for whom a matching ID number was not found. You need to find these students in the Portal file, identify their correct ID number, and update this number in the Remark file. If the students dropped the course, remove them from the Remark file. It's a good idea to make a copy of the file before doing this, just in case.
 
 After fixing all of the incorrect ID numbers, run the code again. If all of the students' ID numbers are correct you will receive confirmation that the marking results have been saved.
 
