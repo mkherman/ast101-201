@@ -47,15 +47,16 @@ data = pd.merge(rdata,pdata,left_on='Student Number',right_on='Student ID',
 		suffixes=('',' portal'),how='left')
 data = data.rename(columns={'Total Score':'MC Score'})
 
-# Find the students who messed up their ID and make my life difficult
+# Find the students who messed up their ID or dropped the course
 missed = data.loc[data['Student Number'] != data['Student ID']]
 
 if len(missed) != 0:
 	print '\n*** You have %s unmatched students out of %s ***\n' %(len(missed),len(data))
-	print 'The following students likely dropped the course or messed up their student number. To fix this:  \
-		\n  - Find their name in the Portal .csv file, if they are still enrolled  \
+	print 'The following students likely messed up their student number or dropped the course. To fix this:  \
+		\n  - Find their name in the Portal CSV file, if they are still enrolled  \
 		\n  - Determine their correct student number  \
-		\n  - Edit their student number in the Remark .csv file (maybe make a copy first)  \
+		\n  - Edit their student number in the Remark CSV file (make a copy first!)  \
+		\n  - If they are no longer enrolled, remove their data from the Remark CSV file  \
 		\n  - Save everything and rerun this code  \
 		\nTrust me, it is safer to do this by eye!\n'
 	print missed[['Last Name','First Initial','Student Number']], '\n'
@@ -86,10 +87,10 @@ data = data.reindex(index=ns.order_by_index(data.index, ns.index_natsorted(data[
 outcols = ['Username', 'MC Score', 'SA Score', 'Total (%)', 'MC Answers']
 data[outcols].to_csv(output, index=False)
 
-print '\nNice, no unmatched students! Your output file has been saved.'
-print '\n*** IMPORTANT ***'
-print 'Do not forget to change the column names in the output file to '
-print 'match the columns specific to the Portal grade center for your course!\n'
+print '\nNice, no unmatched students! Your output file has been saved.  \
+	\n*** IMPORTANT ***  \
+	\nDo not forget to change the column names in the output file to  \
+	\nmatch the columns specific to the Portal grade center for your course!\n'
 
 
 if plots:
@@ -113,29 +114,25 @@ if plots:
 
 		fig = plt.figure()
 		ax3 = fig.add_subplot(223)
-		ax3.hist(data['SA_Full3'], bins=np.arange(0,SApts+1,0.5), 
-			edgecolor='k', color='0.75')
+		ax3.hist(data['SA_Full3'], bins=np.arange(0,SApts+1,0.5), edgecolor='k', color='0.75')
 		ax3.set_xlabel('Score')
 		ax3.set_ylabel('Frequency')
 		ax3.text(ax3.get_xlim()[1]*0.05,ax3.get_ylim()[1]*0.85,'SA Question 3')
 
 		ax4 = fig.add_subplot(224, sharex=ax3, sharey=ax3)
-		ax4.hist(data['SA_Full4'], bins=np.arange(0,SApts+1,0.5), 
-			edgecolor='k', color='0.75')
+		ax4.hist(data['SA_Full4'], bins=np.arange(0,SApts+1,0.5), edgecolor='k', color='0.75')
 		ax4.set_xlabel('Score')
 		plt.setp(ax4.get_yticklabels(),visible=False)
 		ax4.text(ax4.get_xlim()[1]*0.05,ax4.get_ylim()[1]*0.85,'SA Question 4')
 
 		ax1 = fig.add_subplot(221, sharex=ax3, sharey=ax3)
-		ax1.hist(data['SA_Full1'], bins=np.arange(0,SApts+1,0.5), 
-			edgecolor='k', color='0.75')
+		ax1.hist(data['SA_Full1'], bins=np.arange(0,SApts+1,0.5), edgecolor='k', color='0.75')
 		plt.setp(ax1.get_xticklabels(),visible=False)
 		ax1.set_ylabel('Frequency')
 		ax1.text(ax1.get_xlim()[1]*0.05,ax1.get_ylim()[1]*0.85,'SA Question 1')
 
 		ax2 = fig.add_subplot(222, sharex=ax3, sharey=ax3)
-		ax2.hist(data['SA_Full2'], bins=np.arange(0,SApts+1,0.5), 
-			edgecolor='k', color='0.75')
+		ax2.hist(data['SA_Full2'], bins=np.arange(0,SApts+1,0.5), edgecolor='k', color='0.75')
 		plt.setp(ax2.get_xticklabels(),visible=False)
 		plt.setp(ax2.get_yticklabels(),visible=False)
 		ax2.set_xbound(lower=0,upper=SApts+0.5)
