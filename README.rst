@@ -39,6 +39,8 @@ You can also specify:
 * ``-o {output}`` for the desired name of the output CSV file
 * ``--plot`` to plot the mark distributions
 
+Note that currently the code is only able to plot the short-answer distributions if there are exactly 4 questions.
+
 
 Output
 ++++++++++++++
