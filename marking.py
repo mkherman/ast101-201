@@ -98,8 +98,8 @@ if plots:
 	# Create total score histogram
 	fig = plt.figure()
 	ax = fig.add_subplot(111)
-	ax.hist(data['Total (%)'], bins=np.arange(0,100,4), edgecolor='k', color='0.75')
-	ax.set_xlim(0,100)
+	ax.hist(data['Total (%)'], bins=np.arange(0,104,4), edgecolor='k', color='0.75')
+	ax.set_xlim(0,105)
 	ax.set_ylim(ymin=0)	
 	ax.set_xlabel('Score (%)')
 	ax.set_ylabel('Frequency')
