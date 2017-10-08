@@ -8,9 +8,9 @@ It outputs a CSV file containing student information and their exam results, whi
 Requirements
 ++++++++++++++
 
-This code uses Python 2.7. You'll also need the packages `pandas <https://pandas.pydata.org/pandas-docs/stable/install.html>`_ and `natsort <http://natsort.readthedocs.io/en/master/intro.html#installation>`_. Both of these can be installed via pip or conda.
+This code uses Python 2.7. You'll need the packages `pandas <https://pandas.pydata.org/pandas-docs/stable/install.html>`_ and `natsort <http://natsort.readthedocs.io/en/master/intro.html#installation>`_, both of which can be installed via pip or conda.
 
-Before you begin, you should have two .csv files ready: 
+Before you begin, you should have two CSV files ready: 
 
 * the **Remark results** from all of the ScanTron data
 * the **student user information** downloaded from the Portal course website, which you can retrieve by going to the Grade Center and choosing 'Work Offline'
@@ -43,11 +43,11 @@ You can also specify:
 Output
 ++++++++++++++
 
-Generally there will be a handful of students who wrote down their ID numbers incorrectly on their ScanTron sheets. This is a problem, because their marks will not be properly uploaded to Portal. Unfortunately, this is very tricky to fix without human aid!
+Generally there will be a handful of students who wrote down their ID numbers incorrectly on their ScanTron sheets. This is a problem, because their marks will not be properly uploaded to Portal, and it's very tricky to fix without human aid!
 
 Therefore, the code prints a list of all the students for whom a matching ID number was not found. You need to find these students in the Portal file, identify their correct ID number, and update this number in the Remark file. It's a good idea to make a copy of the Remark file before doing this, just in case.
 
-After fixing all of the incorrect ID numbers, run the code again. If all of the students' ID numbers are correct you should receive confirmation that the marking results have been saved.
+After fixing all of the incorrect ID numbers, run the code again. If all of the students' ID numbers are correct you will receive confirmation that the marking results have been saved.
 
 **BUT WAIT! THERE'S MORE.**
 
