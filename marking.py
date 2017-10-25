@@ -40,6 +40,7 @@ plots = args.plot
 
 # Read in Remark exam data and Portal student info
 rdata = pd.read_csv(remark)
+rdata['Student Number'] = rdata['Student Number'].apply(str)
 pdata = pd.read_csv(portal)
 
 # Merge data
