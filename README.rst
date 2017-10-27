@@ -12,8 +12,8 @@ This code uses Python 2.7. You'll need the packages `pandas <https://pandas.pyda
 
 Before you begin, you should have two CSV files ready: 
 
-* the **Remark results** from all of the ScanTron data
-* the **student user information** downloaded from the Portal course website, which you can retrieve by going to the Grade Center and choosing 'Work Offline'
+* The **Remark results** from all of the ScanTron data. See the Remark_Instructions.pdf file for more information
+* The **student user information** downloaded from the Portal course website, which you can retrieve by going to the Grade Center and choosing 'Work Offline'
 
 
 Running the code
