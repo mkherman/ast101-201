@@ -75,8 +75,6 @@ data[MCcols] = data[MCcols].replace('.*,.*','M',regex=True)
 MCind = data.columns.get_loc('MC1')
 data['MC Answers'] = data.iloc[:,MCind:MCind+numMC].astype(str).sum(axis=1)
 
-
-
 # Calculate SA score
 SAhcols = ['SA_Half'+str(i) for i in range(1,numSA+1)]
 data[SAhcols] = 0.5 * data[SAhcols]
